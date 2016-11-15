@@ -15,4 +15,13 @@ class Movie <  ActiveRecord::Base
   # - description: no rules
   # - image_url: no rules
 
+
+  #Sets up relationship for ".director" method
+  belongs_to :director, :class_name => "Director", :foreign_key => "director_id"
+
+  #Sets up relationship for ".characters" method
+  has_many :characters, :class_name => "Character", :foreign_key => "movie_id"
+
+  #Sets up relationship for ".actors" method
+  has_many :actors, :through => :characters
 end

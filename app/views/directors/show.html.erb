@@ -23,8 +23,10 @@
       <dt>Filography</dt>
       <dd>
         <ul class="list-group">
-          <% Movie.where(:director_id => @director.id).each do |movie| %>
-          <li class="list-group-item"><a href="/movies/<%= movie.id %>"><%= movie.title %></a></li>
+          <% @director.movies.each do |movie| %>
+          <li class="list-group-item">
+            <a href="/movies/<%= movie.id %>"><%= movie.title %></a>
+          </li>
           <% end %>
           <li class="list-group-item">
 
