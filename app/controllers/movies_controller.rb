@@ -7,7 +7,7 @@ class MoviesController < ApplicationController
 
   def show
     @movie = Movie.find(params[:id])
-
+    @character = Character.new
     render("movies/show.html.erb")
   end
 
@@ -30,7 +30,11 @@ class MoviesController < ApplicationController
     save_status = @movie.save
 
     if save_status == true
-      redirect_to(:back, :notice => "Movie created successfully.")
+      if URI(request.referer).path == "/movies/new"
+        redirect_to("/movies/#{@movie.id}", :notice => "Movie created successfully.")
+      else
+        redirect_to(:back, :notice => "Movie created successfully.")
+      end
     else
       render("movies/new.html.erb")
     end
@@ -55,7 +59,7 @@ class MoviesController < ApplicationController
     save_status = @movie.save
 
     if save_status == true
-      redirect_to(:back, :notice => "Movie updated successfully.")
+      redirect_to("/movies/#{@movie.id}", :notice => "Movie updated successfully.")
     else
       render("movies/edit.html.erb")
     end
@@ -67,7 +71,7 @@ class MoviesController < ApplicationController
     @movie.destroy
 
     if URI(request.referer).path == "/movies/#{@movie.id}"
-      redirect_to("/", :notice => "Movie deleted.")
+      redirect_to("/movies", :notice => "Movie deleted.")
     else
       redirect_to(:back, :notice => "Movie deleted.")
     end

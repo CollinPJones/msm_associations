@@ -69,9 +69,11 @@
           Director
         </label>
         <%= select_tag(:director_id, options_from_collection_for_select(Director.all, :id, :name, @movie.director_id), :class => "form-control") %>
-        
-      </div>
 
+      </div>
+      <p class="help-block">
+        <a href="/directors/new">or add a new director</a>
+      </p>
       <button class="btn btn-success">
         Create Movie
       </button>
